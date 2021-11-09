@@ -65,14 +65,18 @@ def mtcnn_main(show_plot=True):
     detector = MTCNN()
 
     for file in os.listdir(folder_data):
-        if not file.startswith('.'):
+        if not file.startswith('.'):  # exclude hidden files
+            # get filename, filepath, file extension
             filename, file_extension = os.path.splitext(file)
             filepath = folder_data + filename + file_extension
 
+            # detect faces
             pixels = read_img(filepath, show_plot)
             results = detector.detect_faces(pixels)
 
+            # draw and save faces
             plot = draw_facebox(pixels, results, show_plot)
             plot.savefig(folder_result + filename, bbox_inches='tight')
 
+            # save each face
             crop_save_face(pixels, results, folder_result, file)
