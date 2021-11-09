@@ -5,30 +5,6 @@ from PIL import Image
 from mtcnn.mtcnn import MTCNN
 
 
-def draw_facebox(img, result_list, show_plot):
-    # plot the image
-    plt.imshow(img)
-    # get the context for drawing boxes
-    ax = plt.gca()
-    # plot each box
-    for result in result_list:
-        # get coordinates
-        x, y, width, height = result['box']
-        # create the shape
-        rect = plt.Rectangle((x, y), width, height, fill=False, color='orange')
-        # draw the box
-        ax.add_patch(rect)
-        # draw the dots
-        for key, value in result['keypoints'].items():
-            # create and draw dot
-            dot = plt.Circle(value, radius=2, color='red')
-            ax.add_patch(dot)
-    # show the plot
-    if show_plot:
-        plt.show()
-    return plt
-
-
 def read_img(filepath, show_plot):
     pixels = plt.imread(filepath)
     print("Shape of image/array:", pixels.shape)
@@ -37,6 +13,32 @@ def read_img(filepath, show_plot):
     if show_plot:
         plt.show()
     return pixels
+
+
+def draw_facebox(img, result_list, show_plot, filepath):
+    # plot the image
+    plt.imshow(img)
+    # get the context for drawing boxes
+    ax = plt.gca()
+    # plot each box
+    for n, result in enumerate(result_list):
+        # get coordinates
+        x, y, width, height = result['box']
+        # create the shape
+        rect = plt.Rectangle((x, y), width, height, fill=False, color='orange')
+        # draw the box
+        ax.add_patch(rect)
+        # add face number text to box, note that the face number was already sorted by MTCNN with confidence
+        ax.text(x, y, str(n), color='orange')
+        # draw the dots
+        for key, value in result['keypoints'].items():
+            # create and draw dot
+            dot = plt.Circle(value, radius=2, color='red')
+            ax.add_patch(dot)
+    plt.savefig(filepath, bbox_inches='tight')
+    # show the plot
+    if show_plot:
+        plt.show()
 
 
 def crop_save_face(pixels, results, folder_result, filename):
@@ -75,8 +77,7 @@ def mtcnn_main(show_plot=True):
             results = detector.detect_faces(pixels)
 
             # draw and save faces
-            plot = draw_facebox(pixels, results, show_plot)
-            plot.savefig(folder_result + filename, bbox_inches='tight')
+            draw_facebox(pixels, results, show_plot, folder_result + 'results ' + file)
 
             # save each face
             crop_save_face(pixels, results, folder_result, file)
