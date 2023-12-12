@@ -25,20 +25,20 @@ Different architectures are used for mask recognition, including CNNs, ResNets, 
 Three CNN models are implemented, with the first model achieving the best accuracy on the test set.
 
 #### ResNets
-Various ResNet architectures (ResNet, ResNet ResNet ResNetV ResNet are explored, with ResNetperforming the best on the test set.
+Various ResNet architectures are explored, with ResNet50 achieving the highest accuracy on the test set.
 
 #### InceptionNets
-InceptionVand InceptionResNet architectures are implemented, with InceptionResNet achieving high accuracy with faster training time.
+Inception ResNet architectures are implemented, with Inception ResNet achieving high accuracy with faster training time.
 
 #### DenseNets
-DenseNetand DenseNetarchitectures are used, with DenseNetoutperforming DenseNetin terms of accuracy.
+DenseNet architectures are used. DenseNet121 achieves the highest accuracy on the test set.
 
 #### EfficientNets
-EfficientNetB EfficientNetB and EfficientNetBare implemented, with EfficientNetBachieving the highest accuracy on the test set.
+EfficientNet architectures are implemented, with EfficientNetB0 achieving the highest accuracy on the test set.
 
 ### Comparison and Discussion
-EfficientNetBperforms the best among the tested models, with an accuracy rate of .% on the test set. The trade-off between accuracy and training time is considered, and EfficientNetBis chosen for further use.
+The models are compared based on accuracy, loss, and training time. The best-performing model, EfficientNetB0, is chosen for mask detection in static images and webcam video streams.
 
 ##  Final Result and Analysis
-The best-performing mask detection model, EfficientNetB is applied to construct a pipeline for detecting facial masks in static images and webcam video streams. The detection results are analyzed, and limitations, such as lower accuracy in low-resolution images, are identified for future improvements.
+The best-performing mask detection model, EfficientNetB0 is applied to construct a pipeline for detecting facial masks in static images and webcam video streams. The detection results are analyzed, and limitations, such as lower accuracy in low-resolution images, are identified for future improvements.
 
